@@ -55,7 +55,7 @@ export async function callGemini(prompt: string, systemPrompt?: string): Promise
     ],
     generationConfig: {
       temperature: 0.7,
-      maxOutputTokens: 1024,
+      maxOutputTokens: 4096,
       topP: 0.95,
     },
     safetySettings: [

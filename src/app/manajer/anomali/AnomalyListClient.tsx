@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import type { Anomali, User } from '@/types'
 import { formatDate } from '@/lib/utils'
 import { tipeLabel } from '@/lib/anomaly'
+import AiText from '@/components/AiText'
 
 async function requestAiExplanation(anomali: Anomali): Promise<string> {
   const konteks = `Tipe: ${anomali.tipe}
@@ -160,7 +161,7 @@ export default function AnomalyListClient({ user }: Props) {
                   <span className="text-xs font-bold text-purple-700">✨ Analisis AI Gemini</span>
                   <span className="text-xs text-purple-400">gemini-2.5-flash</span>
                 </div>
-                <div className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">{aiResult[a.id]}</div>
+                <AiText text={aiResult[a.id]} />
               </div>
             )}
           </div>

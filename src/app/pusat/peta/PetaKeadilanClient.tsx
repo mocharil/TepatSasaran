@@ -178,10 +178,10 @@ export default function PetaKeadilanClient({ user: _user }: Props) {
   const stats = data?.stats
 
   return (
-    <div className="flex-1 flex flex-col lg:flex-row" style={{ minHeight: 'calc(100vh - 88px)' }}>
+    <div className="flex-1 flex flex-col lg:flex-row min-h-0">
 
       {/* ── Sidebar ── */}
-      <aside className="w-full lg:w-72 bg-gray-900 text-white flex-shrink-0 overflow-y-auto">
+      <aside className="w-full lg:w-72 bg-gray-900 text-white flex-shrink-0 overflow-y-auto max-h-48 lg:max-h-none">
         <div className="p-4 space-y-5">
 
           {/* KPI chips */}
@@ -295,7 +295,7 @@ export default function PetaKeadilanClient({ user: _user }: Props) {
       </aside>
 
       {/* ── Map ── */}
-      <div className="flex-1 relative min-h-96">
+      <div className="flex-1 relative min-h-0" style={{ minHeight: '60vh' }}>
         <div ref={mapRef} className="absolute inset-0" />
 
         {/* Selected koperasi card */}

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import type { User, JenisBarang, Warga, Keputusan } from '@/types'
 import { formatRupiah, keputusanColor, keputusanIcon } from '@/lib/utils'
+import AiText from '@/components/AiText'
 
 interface Props { user: User }
 
@@ -357,7 +358,7 @@ Anomali terdeteksi: ${r.anomaliDetected}`
                 )}
               </div>
               {aiTip ? (
-                <div className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">{aiTip}</div>
+                <AiText text={aiTip} />
               ) : (
                 <p className="text-xs text-purple-600">Klik &quot;Tanya AI&quot; untuk mendapat panduan cara menjelaskan penolakan ini kepada warga.</p>
               )}

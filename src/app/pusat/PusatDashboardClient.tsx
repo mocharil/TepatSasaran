@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import type { User, PetaAnalitik } from '@/types'
 import { formatRupiah } from '@/lib/utils'
+import AiText from '@/components/AiText'
 
 interface Props { user: User }
 
@@ -110,7 +111,7 @@ export default function PusatDashboardClient({ user }: Props) {
         </div>
         <div className="p-4">
           {aiInsight ? (
-            <div className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">{aiInsight}</div>
+            <AiText text={aiInsight} />
           ) : (
             <p className="text-sm text-gray-400 text-center py-4">
               Klik tombol untuk mendapat analisis AI kondisi distribusi subsidi KDMP saat ini

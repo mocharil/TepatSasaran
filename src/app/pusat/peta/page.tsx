@@ -8,7 +8,7 @@ export default async function PetaPage() {
   if (!user) redirect('/login')
 
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col">
+    <div className="h-screen bg-gray-900 flex flex-col overflow-hidden">
       <Navbar user={user} title="🗺️ Peta Keadilan Distribusi — Kabupaten Klaten" />
       <PetaKeadilanClient user={user} />
     </div>
