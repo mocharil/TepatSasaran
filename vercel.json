@@ -1,0 +1,12 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "devCommand": "next dev",
+  "installCommand": "npm install",
+  "outputDirectory": ".next",
+  "env": {
+    "JWT_SECRET": "@jwt-secret",
+    "NEXT_PUBLIC_APP_NAME": "TepatSasaran",
+    "NEXT_PUBLIC_KABUPATEN": "Klaten"
+  }
+}

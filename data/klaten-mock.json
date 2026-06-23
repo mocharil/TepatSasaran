@@ -1,0 +1,203 @@
+{
+  "_meta": {
+    "wilayah": "Kabupaten Klaten, Jawa Tengah",
+    "kode": "3310",
+    "catatan": "Data SINTETIS untuk demo hackathon. Struktur mengikuti DTSEN + PODES BPS. Adapter Integration akan ditukar ke API resmi saat diadopsi Kemenkop.",
+    "koordinat_pusat": { "lat": -7.7075, "lng": 110.5974 }
+  },
+  "kecamatan": [
+    { "id": "kec-001", "kode": "3310010", "nama": "Prambanan", "lat": -7.7532, "lng": 110.4912 },
+    { "id": "kec-002", "kode": "3310050", "nama": "Delanggu", "lat": -7.6210, "lng": 110.6780 },
+    { "id": "kec-003", "kode": "3310070", "nama": "Klaten Tengah", "lat": -7.7056, "lng": 110.5981 },
+    { "id": "kec-004", "kode": "3310080", "nama": "Trucuk", "lat": -7.7450, "lng": 110.6320 },
+    { "id": "kec-005", "kode": "3310110", "nama": "Karanganom", "lat": -7.6534, "lng": 110.5893 },
+    { "id": "kec-006", "kode": "3310130", "nama": "Ceper", "lat": -7.6980, "lng": 110.5621 }
+  ],
+  "desa": [
+    {
+      "id": "desa-001", "kode": "3310010001", "nama": "Bentangan", "kecamatanId": "kec-001",
+      "lat": -7.7521, "lng": 110.4923, "jumlahPenduduk": 3240, "jumlahKK": 987, "indeksKemiskinan": 0.18,
+      "catatan": "Desa peluncuran Kopdes Merah Putih pertama, 21 Jul 2025"
+    },
+    {
+      "id": "desa-002", "kode": "3310010002", "nama": "Sanggrahan", "kecamatanId": "kec-001",
+      "lat": -7.7498, "lng": 110.4880, "jumlahPenduduk": 2780, "jumlahKK": 821, "indeksKemiskinan": 0.22
+    },
+    {
+      "id": "desa-003", "kode": "3310050001", "nama": "Delanggu", "kecamatanId": "kec-002",
+      "lat": -7.6198, "lng": 110.6812, "jumlahPenduduk": 4120, "jumlahKK": 1230, "indeksKemiskinan": 0.09
+    },
+    {
+      "id": "desa-004", "kode": "3310070001", "nama": "Klaten", "kecamatanId": "kec-003",
+      "lat": -7.7062, "lng": 110.5990, "jumlahPenduduk": 6540, "jumlahKK": 1890, "indeksKemiskinan": 0.07
+    },
+    {
+      "id": "desa-005", "kode": "3310080001", "nama": "Trucuk", "kecamatanId": "kec-004",
+      "lat": -7.7430, "lng": 110.6298, "jumlahPenduduk": 2910, "jumlahKK": 876, "indeksKemiskinan": 0.27
+    },
+    {
+      "id": "desa-006", "kode": "3310110001", "nama": "Karanganom", "kecamatanId": "kec-005",
+      "lat": -7.6520, "lng": 110.5910, "jumlahPenduduk": 2340, "jumlahKK": 701, "indeksKemiskinan": 0.31,
+      "catatan": "blank_spot — tidak ada koperasi, indeks kemiskinan tinggi (demo exclusion error)"
+    },
+    {
+      "id": "desa-007", "kode": "3310130001", "nama": "Ceper", "kecamatanId": "kec-006",
+      "lat": -7.6965, "lng": 110.5645, "jumlahPenduduk": 3680, "jumlahKK": 1102, "indeksKemiskinan": 0.14
+    }
+  ],
+  "koperasi": [
+    {
+      "id": "kop-001", "kode": "KDMP-3310-001", "nama": "KopDes Merah Putih Bentangan",
+      "desaId": "desa-001", "lat": -7.7521, "lng": 110.4923, "status": "AKTIF",
+      "unitUsaha": ["sembako", "pupuk", "simpan_pinjam", "apotek"],
+      "skorRisiko": 85,
+      "catatan": "Koperasi percontohan; tanam kasus bocor di sini untuk demo"
+    },
+    {
+      "id": "kop-002", "kode": "KDMP-3310-002", "nama": "KopDes Merah Putih Sanggrahan",
+      "desaId": "desa-002", "lat": -7.7498, "lng": 110.4880, "status": "AKTIF",
+      "unitUsaha": ["sembako", "pupuk", "lgp"],
+      "skorRisiko": 42
+    },
+    {
+      "id": "kop-003", "kode": "KDMP-3310-003", "nama": "KopDes Merah Putih Delanggu",
+      "desaId": "desa-003", "lat": -7.6198, "lng": 110.6812, "status": "AKTIF",
+      "unitUsaha": ["sembako", "pupuk", "lgp", "simpan_pinjam"],
+      "skorRisiko": 12
+    },
+    {
+      "id": "kop-004", "kode": "KDMP-3310-004", "nama": "KopDes Merah Putih Trucuk",
+      "desaId": "desa-005", "lat": -7.7430, "lng": 110.6298, "status": "MACET",
+      "unitUsaha": ["sembako"],
+      "skorRisiko": 71,
+      "catatan": "Status MACET — kasus koperasi tidak berjalan optimal"
+    },
+    {
+      "id": "kop-005", "kode": "KDMP-3310-005", "nama": "KopDes Merah Putih Ceper",
+      "desaId": "desa-007", "lat": -7.6965, "lng": 110.5645, "status": "AKTIF",
+      "unitUsaha": ["sembako", "pupuk", "lgp", "apotek", "simpan_pinjam"],
+      "skorRisiko": 28
+    }
+  ],
+  "jenisBarang": [
+    { "id": "brg-001", "kode": "PUPUK-UREA", "nama": "Pupuk Urea Bersubsidi", "kategori": "PUPUK", "het": 2250, "satuan": "kg", "isSubsidi": true },
+    { "id": "brg-002", "kode": "PUPUK-NPK", "nama": "Pupuk NPK Bersubsidi", "kategori": "PUPUK", "het": 2300, "satuan": "kg", "isSubsidi": true },
+    { "id": "brg-003", "kode": "LPG-3KG", "nama": "LPG 3 kg", "kategori": "LPG", "het": 21000, "satuan": "tabung", "isSubsidi": true },
+    { "id": "brg-004", "kode": "BERAS-SPHP", "nama": "Beras SPHP", "kategori": "SEMBAKO", "het": 13500, "satuan": "kg", "isSubsidi": true },
+    { "id": "brg-005", "kode": "MINYAKITA", "nama": "Minyakita 1L", "kategori": "SEMBAKO", "het": 15700, "satuan": "liter", "isSubsidi": true }
+  ],
+  "stok": [
+    { "koperasiId": "kop-001", "jenisBarangId": "brg-001", "jumlah": 2400 },
+    { "koperasiId": "kop-001", "jenisBarangId": "brg-002", "jumlah": 1800 },
+    { "koperasiId": "kop-001", "jenisBarangId": "brg-003", "jumlah": 340 },
+    { "koperasiId": "kop-001", "jenisBarangId": "brg-004", "jumlah": 5000 },
+    { "koperasiId": "kop-001", "jenisBarangId": "brg-005", "jumlah": 280 },
+    { "koperasiId": "kop-002", "jenisBarangId": "brg-001", "jumlah": 600 },
+    { "koperasiId": "kop-002", "jenisBarangId": "brg-003", "jumlah": 120 },
+    { "koperasiId": "kop-002", "jenisBarangId": "brg-004", "jumlah": 1200 },
+    { "koperasiId": "kop-003", "jenisBarangId": "brg-001", "jumlah": 1500 },
+    { "koperasiId": "kop-003", "jenisBarangId": "brg-004", "jumlah": 3000 },
+    { "koperasiId": "kop-005", "jenisBarangId": "brg-001", "jumlah": 900 },
+    { "koperasiId": "kop-005", "jenisBarangId": "brg-003", "jumlah": 200 },
+    { "koperasiId": "kop-005", "jenisBarangId": "brg-004", "jumlah": 2400 }
+  ],
+  "warga": [
+    {
+      "id": "wrg-001", "nik": "3310010001000001", "nama": "Siti Rahayu", "desaId": "desa-001",
+      "desil": 2, "profesi": "petani", "kuotaPupuk": 200, "kuotaPupukSisa": 200,
+      "eligible": true, "catatan": "Demo: warga LAYAK — BOLEH beli pupuk subsidi"
+    },
+    {
+      "id": "wrg-002", "nik": "3310010001000002", "nama": "Budi Hartono", "desaId": "desa-001",
+      "desil": 9, "profesi": "pengusaha", "kuotaPupuk": 0, "kuotaPupukSisa": 0,
+      "eligible": false, "catatan": "Demo: warga TIDAK LAYAK (desil 9) — DITOLAK"
+    },
+    {
+      "id": "wrg-003", "nik": "3310010001000003", "nama": "Parmi Sugiarto", "desaId": "desa-001",
+      "desil": 1, "profesi": "petani", "kuotaPupuk": 300, "kuotaPupukSisa": 300,
+      "eligible": true
+    },
+    {
+      "id": "wrg-004", "nik": "3310010001000004", "nama": "Sri Wahyuni", "desaId": "desa-001",
+      "desil": 3, "profesi": "buruh tani", "kuotaPupuk": 150, "kuotaPupukSisa": 0,
+      "eligible": true, "catatan": "Demo: kuota habis — WARNING"
+    },
+    {
+      "id": "wrg-005", "nik": "3310010002000001", "nama": "Joko Widodo", "desaId": "desa-002",
+      "desil": 4, "profesi": "petani", "kuotaPupuk": 250, "kuotaPupukSisa": 250,
+      "eligible": true
+    },
+    {
+      "id": "wrg-006", "nik": "3310050001000001", "nama": "Heni Susanti", "desaId": "desa-003",
+      "desil": 5, "profesi": "pedagang", "kuotaPupuk": 0, "kuotaPupukSisa": 0,
+      "eligible": true
+    },
+    {
+      "id": "wrg-007", "nik": "3310110001000001", "nama": "Marni Wati", "desaId": "desa-006",
+      "desil": 1, "profesi": "petani", "kuotaPupuk": 200, "kuotaPupukSisa": 200,
+      "eligible": true, "catatan": "Tinggal di desa-006 (blank spot, tidak ada koperasi) — exclusion error demo"
+    },
+    {
+      "id": "wrg-008", "nik": "3310130001000001", "nama": "Agus Santoso", "desaId": "desa-007",
+      "desil": 8, "profesi": "wiraswasta", "kuotaPupuk": 0, "kuotaPupukSisa": 0,
+      "eligible": false
+    }
+  ],
+  "users": [
+    { "id": "usr-001", "email": "kasir@bentangan.id", "password": "demo1234", "nama": "Kasir Bentangan", "peran": "KASIR", "koperasiId": "kop-001" },
+    { "id": "usr-002", "email": "manajer@bentangan.id", "password": "demo1234", "nama": "Pak Manajer", "peran": "MANAJER", "koperasiId": "kop-001" },
+    { "id": "usr-003", "email": "pemda@klaten.go.id", "password": "demo1234", "nama": "Dinas Koperasi Klaten", "peran": "PEMDA", "koperasiId": null },
+    { "id": "usr-004", "email": "admin@kemenkop.go.id", "password": "demo1234", "nama": "Admin Pusat Kemenkop", "peran": "PUSAT", "koperasiId": null }
+  ],
+  "transaksi_demo": [
+    {
+      "id": "trx-001", "koperasiId": "kop-001", "wargaId": "wrg-001",
+      "keputusan": "BOLEH", "status": "SELESAI",
+      "items": [{ "jenisBarangId": "brg-001", "jumlah": 50, "hargaSatuan": 2250, "total": 112500 }],
+      "totalHarga": 112500, "createdAt": "2026-06-20T08:30:00Z"
+    },
+    {
+      "id": "trx-002", "koperasiId": "kop-001", "wargaId": "wrg-002",
+      "keputusan": "TOLAK", "status": "DITOLAK",
+      "alasan": "Penerima tidak layak: desil 9 (di atas ambang batas desil 7). Pembelian subsidi tidak diizinkan.",
+      "items": [{ "jenisBarangId": "brg-001", "jumlah": 100, "hargaSatuan": 2250, "total": 225000 }],
+      "totalHarga": 0, "createdAt": "2026-06-20T09:15:00Z",
+      "anomali": { "tipe": "INCLUSION_ERROR", "severity": "HIGH", "deskripsi": "Upaya beli pupuk subsidi oleh warga desil 9 (Budi Hartono)" }
+    },
+    {
+      "id": "trx-003", "koperasiId": "kop-001", "wargaId": "wrg-001",
+      "keputusan": "WARNING", "status": "SELESAI",
+      "alasan": "Harga jual Rp 2.500/kg melebihi HET Rp 2.250/kg. Selisih Rp 250/kg.",
+      "items": [{ "jenisBarangId": "brg-001", "jumlah": 50, "hargaSatuan": 2500, "total": 125000 }],
+      "totalHarga": 125000, "createdAt": "2026-06-21T10:05:00Z",
+      "anomali": { "tipe": "MARKUP_HET", "severity": "MEDIUM", "deskripsi": "Markup harga pupuk urea di atas HET (Rp 2.500 vs HET Rp 2.250)" }
+    },
+    {
+      "id": "trx-004", "koperasiId": "kop-001", "wargaId": "wrg-004",
+      "keputusan": "WARNING", "status": "SELESAI",
+      "alasan": "Kuota pupuk sudah habis. Sisa kuota: 0 kg. Transaksi tetap diproses atas persetujuan manajer.",
+      "items": [{ "jenisBarangId": "brg-001", "jumlah": 25, "hargaSatuan": 2250, "total": 56250 }],
+      "totalHarga": 56250, "createdAt": "2026-06-22T11:20:00Z",
+      "anomali": { "tipe": "OVER_KUOTA", "severity": "MEDIUM", "deskripsi": "Pembelian pupuk melebihi sisa kuota RDKK (Sri Wahyuni)" }
+    }
+  ],
+  "peta_analitik": {
+    "kabupaten": "Klaten",
+    "totalKoperasi": 5,
+    "koperasiAktif": 4,
+    "totalTransaksi": 847,
+    "nilaiTepatSasaran": 0.87,
+    "nilaiKebocoran": 0.13,
+    "nilaiKebocoranRupiah": 14250000,
+    "exclusionError": ["desa-006"],
+    "blankSpot": ["desa-006"],
+    "inclusionError": ["kop-001"],
+    "hotspot": [
+      { "koperasiId": "kop-001", "skorRisiko": 85, "anomaliCount": 3, "label": "⚠️ Risiko Tinggi" },
+      { "koperasiId": "kop-004", "skorRisiko": 71, "anomaliCount": 1, "label": "⚠️ Macet" },
+      { "koperasiId": "kop-002", "skorRisiko": 42, "anomaliCount": 0, "label": "✓ Normal" },
+      { "koperasiId": "kop-005", "skorRisiko": 28, "anomaliCount": 0, "label": "✓ Baik" },
+      { "koperasiId": "kop-003", "skorRisiko": 12, "anomaliCount": 0, "label": "✓ Sangat Baik" }
+    ]
+  }
+}
