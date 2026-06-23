@@ -1,0 +1,240 @@
+// TepatSasaran — Database Schema
+// PostgreSQL + PostGIS via Supabase
+// Run: npx prisma db push && npx prisma db seed
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  directUrl  = env("DIRECT_URL")
+  extensions = [postgis]
+}
+
+// ─── WILAYAH ─────────────────────────────────────────────────────────────────
+
+model Provinsi {
+  id         String      @id @default(cuid())
+  kode       String      @unique // e.g. "33"
+  nama       String
+  kabupaten  Kabupaten[]
+}
+
+model Kabupaten {
+  id         String    @id @default(cuid())
+  kode       String    @unique // e.g. "3310"
+  nama       String
+  provinsiId String
+  provinsi   Provinsi  @relation(fields: [provinsiId], references: [id])
+  kecamatan  Kecamatan[]
+}
+
+model Kecamatan {
+  id          String     @id @default(cuid())
+  kode        String     @unique
+  nama        String
+  kabupatenId String
+  kabupaten   Kabupaten  @relation(fields: [kabupatenId], references: [id])
+  desa        Desa[]
+}
+
+model Desa {
+  id           String      @id @default(cuid())
+  kode         String      @unique
+  nama         String
+  kecamatanId  String
+  kecamatan    Kecamatan   @relation(fields: [kecamatanId], references: [id])
+  // PostGIS geometry — stored as GeoJSON-serialized text for Prisma compat
+  // Raw PostGIS queries used for spatial analysis
+  geojson      String?     // GeoJSON polygon
+  lat          Float?
+  lng          Float?
+  // PODES data
+  jumlahPenduduk  Int      @default(0)
+  jumlahKK        Int      @default(0)
+  indeksKemiskinan Float   @default(0) // 0–1
+  koperasi     Koperasi[]
+  warga        Warga[]
+}
+
+// ─── KOPERASI ─────────────────────────────────────────────────────────────────
+
+model Koperasi {
+  id          String       @id @default(cuid())
+  kode        String       @unique
+  nama        String
+  desaId      String
+  desa        Desa         @relation(fields: [desaId], references: [id])
+  lat         Float
+  lng         Float
+  status      StatusKoperasi @default(AKTIF)
+  tanggalBerdiri DateTime   @default(now())
+  users       User[]
+  stok        Stok[]
+  transaksi   Transaksi[]
+  anomali     Anomali[]
+  createdAt   DateTime     @default(now())
+}
+
+enum StatusKoperasi {
+  AKTIF
+  MACET
+  PEMBANGUNAN
+}
+
+// ─── USERS / AUTH ─────────────────────────────────────────────────────────────
+
+model User {
+  id          String    @id @default(cuid())
+  email       String    @unique
+  password    String    // hashed
+  nama        String
+  peran       Peran     @default(KASIR)
+  koperasiId  String?
+  koperasi    Koperasi? @relation(fields: [koperasiId], references: [id])
+  sessions    Session[]
+  createdAt   DateTime  @default(now())
+}
+
+enum Peran {
+  KASIR
+  MANAJER
+  PEMDA
+  PUSAT
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+// ─── WARGA & ENTITLEMENT ─────────────────────────────────────────────────────
+
+model Warga {
+  id        String   @id @default(cuid())
+  nik       String   @unique
+  nama      String
+  desaId    String
+  desa      Desa     @relation(fields: [desaId], references: [id])
+  // Mock DTSEN data (sintetis — adapter ke API resmi saat produksi)
+  desil     Int      // 1–10 (desil 1 = termiskin)
+  profesi   String?  // e.g. "petani", "nelayan"
+  kuotaPupuk      Int @default(0)  // kg per musim tanam
+  kuotaPupukSisa  Int @default(0)  // sisa kuota
+  eligible        Boolean @default(true) // terhitung dalam DTSEN
+  transaksi Transaksi[]
+  createdAt DateTime @default(now())
+}
+
+// ─── BARANG & STOK ────────────────────────────────────────────────────────────
+
+model JenisBarang {
+  id          String    @id @default(cuid())
+  kode        String    @unique
+  nama        String    // "Pupuk Urea", "LPG 3kg", "Beras SPHP", "Minyakita"
+  kategori    KategoriBarang
+  het         Float     // Harga Eceran Tertinggi (Rp)
+  satuan      String    // "kg", "tabung", "liter"
+  isSubsidi   Boolean   @default(true)
+  stok        Stok[]
+  transaksiItem TransaksiItem[]
+}
+
+enum KategoriBarang {
+  PUPUK
+  LPG
+  SEMBAKO
+  OBAT
+  BANSOS
+}
+
+model Stok {
+  id            String      @id @default(cuid())
+  koperasiId    String
+  koperasi      Koperasi    @relation(fields: [koperasiId], references: [id])
+  jenisBarangId String
+  jenisBarang   JenisBarang @relation(fields: [jenisBarangId], references: [id])
+  jumlah        Float
+  updatedAt     DateTime    @updatedAt
+
+  @@unique([koperasiId, jenisBarangId])
+}
+
+// ─── TRANSAKSI (append-only log) ─────────────────────────────────────────────
+
+model Transaksi {
+  id            String          @id @default(cuid())
+  koperasiId    String
+  koperasi      Koperasi        @relation(fields: [koperasiId], references: [id])
+  wargaId       String
+  warga         Warga           @relation(fields: [wargaId], references: [id])
+  status        StatusTransaksi @default(DIPROSES)
+  keputusan     Keputusan
+  alasan        String?         // alasan TOLAK/WARNING
+  totalHarga    Float
+  items         TransaksiItem[]
+  anomali       Anomali[]
+  createdAt     DateTime        @default(now())
+  // NOTE: tidak ada updatedAt — log bersifat append-only (audit trail)
+}
+
+enum StatusTransaksi {
+  DIPROSES
+  SELESAI
+  DITOLAK
+}
+
+enum Keputusan {
+  BOLEH
+  TOLAK
+  WARNING
+}
+
+model TransaksiItem {
+  id            String      @id @default(cuid())
+  transaksiId   String
+  transaksi     Transaksi   @relation(fields: [transaksiId], references: [id])
+  jenisBarangId String
+  jenisBarang   JenisBarang @relation(fields: [jenisBarangId], references: [id])
+  jumlah        Float
+  hargaSatuan   Float
+  total         Float
+}
+
+// ─── ANOMALI ─────────────────────────────────────────────────────────────────
+
+model Anomali {
+  id           String      @id @default(cuid())
+  koperasiId   String
+  koperasi     Koperasi    @relation(fields: [koperasiId], references: [id])
+  transaksiId  String?
+  transaksi    Transaksi?  @relation(fields: [transaksiId], references: [id])
+  tipe         TipeAnomali
+  deskripsi    String
+  severity     Severity    @default(MEDIUM)
+  resolved     Boolean     @default(false)
+  createdAt    DateTime    @default(now())
+}
+
+enum TipeAnomali {
+  INCLUSION_ERROR     // penerima tidak layak (desil 8–10)
+  OVER_KUOTA          // melebihi kuota
+  MARKUP_HET          // harga di atas HET
+  GHOST_RECIPIENT     // pola ganda/mencurigakan
+  EXCLUSION_ERROR     // warga layak tidak terlayani (spasial)
+  BLANK_SPOT          // wilayah tanpa koperasi
+}
+
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  KRITIS
+}
