@@ -79,10 +79,11 @@
 - [x] (3.8) vercel.json + .gitignore cleanup
 - [x] (3.9) Production build sukses (npm run build ✅)
 
-### Phase 4 — Onsite 11–12 Jul (TODO)
-- [ ] Git init + push ke GitHub (perlu token)
-- [ ] Deploy ke Vercel (connect repo)
-- [ ] Set env var JWT_SECRET di Vercel dashboard
+### Phase 4 — Onsite 11–12 Jul (IN PROGRESS)
+- [x] AI features (Gemini 2.5 Flash): src/lib/gemini.ts + /api/ai/chat + 3 UI touchpoint
+- [x] Git push ke GitHub → https://github.com/mocharil/TepatSasaran.git (master)
+- [ ] Deploy ke Vercel (connect repo mocharil/TepatSasaran)
+- [ ] Set env var di Vercel: JWT_SECRET + GOOGLE_SERVICE_ACCOUNT_JSON (paste isi SA JSON)
 - [ ] Latihan demo 90 detik ×5 (lihat docs/06-demo-script.md)
 - [ ] Rekam video cadangan (layar + audio)
 - [ ] Print cheatsheet NIK demo

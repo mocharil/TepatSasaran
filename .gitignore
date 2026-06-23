@@ -35,11 +35,9 @@ yarn-error.log*
 .env
 
 # Google Service Account credentials — JANGAN PERNAH commit ke git
-*.json
-!package.json
-!package-lock.json
-!tsconfig.json
-!vercel.json
+skilled-compass-backup.json
+*-service-account.json
+*-sa.json
 
 # vercel
 .vercel
